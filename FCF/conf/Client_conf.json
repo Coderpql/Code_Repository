@@ -1,0 +1,8 @@
+{
+  "model_name": "Federated CF",
+  "Epoch": 20,
+  "iterations": 20,
+  "K": 4,
+  "alpha": 1,
+  "lambda": 1
+}

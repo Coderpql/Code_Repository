@@ -1,0 +1,63 @@
+AutoRec:
+  hidden_dim: 800  # 偏好特征的维度
+  lambd: 0.001  # 正则项系数
+  ratio: 0.8  # 数据集分割比例
+  dropout: 0.1  # drop_out比例
+  EPOCH: 50  # 迭代次数
+  BATCH_SIZE: 50  # 每个batch数据量
+  LR: 0.001  # 学习率
+  device: ['cpu', 'cuda:0']  # 训练所用设备
+  # 域名列表
+  domains: ['ratings_Movies_and_TV', 'ratings_Office_Products',
+            'ratings_CDs_and_Vinyl', 'ratings_Sports_and_Outdoors',
+            'ratings_Video_Games', 'ratings_Apps_for_Android',
+            'ratings_Toys_and_Games', 'ratings_Automotive']
+  combinations: [['ratings_Movies_and_TV', 'ratings_Office_Products'],
+                 ['ratings_CDs_and_Vinyl', 'ratings_Sports_and_Outdoors'],
+                 ['ratings_Video_Games', 'ratings_Apps_for_Android'],
+                 ['ratings_Toys_and_Games', 'ratings_Automotive']]
+  is_process: true  # 数据是否处理
+  is_filter: true  # 数据是否过滤
+  path: '../data/AutoRec/'  # AutoRec数据目录
+  path_data: '../data/Amazon/'  # 数据目录
+  path_model: '../res/model/'   # 模型存放目录
+  path_log: '../res/log/AutoRec/'  # 训练记录存放
+
+
+DARec:
+  # 评分模式提取器
+  RPE:
+    input_dim: 800
+    output_dim: 200
+  # 评分预测模块
+  RP_T:
+    input_dim: 200
+    hidden_dim: [300, 400]
+  # 评分预测模块
+  RP_S:
+    input_dim: 200
+    hidden_dim: [300, 400]
+  # 域分类器
+  DC:
+    input_dim: 200
+    hidden_dim: 50
+    output_dim: 2
+  # 模型参数
+  parameter:
+    # beta: [0.001, 0.01, 0.1, 1, 10, 100, 1000]  # 目标域评分预测损失系数
+    # mu: [0.001, 0.01, 0.1, 1, 10, 100, 1000]  # 域分类器损失系数
+    # lambd: [0.001, 0.01, 0.1, 1, 10, 100, 1000]  # 正则项系数
+    beta: 0.1  # 目标域评分预测损失系数
+    mu: 1000  # 域分类器损失系数
+    lambd: 0.1 # 正则项系数
+    ratio: 0.7  # 数据集分割比例
+    EPOCH: 50  # 迭代次数
+    BATCH_SIZE: 50  # 每个batch数据量
+    LR: 0.001  # 学习率
+    device: [ 'cpu', 'cuda:0' ]  # 训练所用设备
+    domains: ['ratings_Office_Products', 'ratings_Movies_and_TV']
+    is_process: false  # 数据是否处理
+    path: '../data/DARec/'  # AutoRec数据目录
+    path_data: '../data/Amazon/'  # 数据目录
+    path_model: '../res/model/'   # 模型存放目录
+    path_log: '../res/log/DARec/'  # 训练记录存放
